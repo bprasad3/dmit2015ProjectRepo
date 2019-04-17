@@ -2,6 +2,8 @@ package dmit2015.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,21 +13,48 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Expense.findAll", query="SELECT e FROM Expense e")
 public class Expense implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="amount")
-	private double amount;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
 
-	@Column(name="date")
-	private Date date;
+	@NotNull
+	private BigDecimal amount;
 
-	public double getAmount() {
+	
+	private Date date=java.util.Calendar.getInstance().getTime();
+	
+	
+	@Column(length = 50)
+	@NotNull
+	private String description;
+	
+	
+	private String email;   
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public Expense() {
+	}
+
+
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
@@ -45,25 +74,15 @@ public class Expense implements Serializable {
 		this.description = description;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	@Column(name="description")
-	private String description;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private Long id;
-
-	public Expense() {
-	}
-
+	
 
 
 }

@@ -5,7 +5,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @DataSourceDefinition(
 
-		name="java:app/datasources/dmit2015courseproject/ProjectDS",
+		name="java:app/datasources/dmit2015courseproject/DMIT2015ProjectDB",
 
 		className="com.microsoft.sqlserver.jdbc.SQLServerDataSource",
 

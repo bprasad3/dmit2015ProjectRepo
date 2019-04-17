@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://highfaces.org"
+	template="/WEB-INF/templates/classicmodels-jsf-template.xhtml">
+
+<ui:param name="title" value="Expeneses - View All" />
+
+	<ui:define name="maincontent">
+
+		<b:jumbotron>
+			<h1>Expense list</h1>
+		</b:jumbotron>
+		<b:container>
+		
+			<b:messages id="messages" />
+			
+			<b:form>
+				<b:dataTable id="datatable"
+					value="#{expenseCRUDController.expenses}"
+					var="item">
+					
+					<b:dataTableColumn label="ID" value="#{item.id}"  />
+					
+					<b:dataTableColumn label="Date" value="#{item.date}" />
+					
+					<b:dataTableColumn label="Description" value="#{item.description}" />
+					
+					
+					
+					<b:dataTableColumn label="Amount" >
+					<h:outputText value="#{item.amount}">
+					<f:convertNumber type="currency" />
+					</h:outputText>
+					 </b:dataTableColumn>
+					
+					
+					
+									
+						<b:dataTableColumn label="Action">
+					<b:commandButton value="delete" 	
+							iconAwesome="trash"			
+							immediate="true"
+							onclick="return confirm('Are you sure you want to delete #{item.id}?')"
+							action="#{expenseCRUDController.delete(item)}"
+							update="messages datatable">
+					</b:commandButton>
+					
+					<b:link id="editLink" outcome="edit"  icon-awesome="edit" icon-size="lg">
+						<f:param name="editId" value="#{item.id}" />
+						edit
+					</b:link>
+				</b:dataTableColumn>
+					
+					
+				</b:dataTable>
+			</b:form>
+
+		</b:container>
+		
+
+
+	</ui:define>
+
+</ui:composition>
